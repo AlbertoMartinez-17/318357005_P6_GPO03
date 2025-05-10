@@ -29,7 +29,8 @@ public class MoveWay : MonoBehaviour
     private int indiceActual = 0;
     public float velocidad = 5f;
     public float precision = 0.5f;
-
+    public GameObject bomb;
+    public Transform positionBomb;
 
     void Start()
     {
@@ -113,7 +114,23 @@ public class MoveWay : MonoBehaviour
             transform.Rotate(Vector3.forward * Time.deltaTime * 500f);
         }
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GameObject bomba = Instantiate(bomb, positionBomb.position, Quaternion.identity);
+            Rigidbody rb = bomba.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.useGravity = true;
+                rb.isKinematic = false;
+                rb.linearVelocity = Vector3.down * 500f;
+                //rb.AddForce(Vector3.down * 30000f, ForceMode.VelocityChange);
+                //rb.AddForce(Vector3.down * 100000f, ForceMode.Impulse);
+                //rb.AddForce(Vector3.down * 20000f, ForceMode.Acceleration);
+                //rb.linearVelocity = GetComponent<Rigidbody>().linearVelocity;
+            }
+            
 
+        }
     }
 
     void DetectClick()
